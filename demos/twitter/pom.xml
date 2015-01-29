@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.datatorrent</groupId>
   <version>1.0-SNAPSHOT</version>
   <artifactId>twitter-demo</artifactId>
   <packaging>jar</packaging>
@@ -124,6 +123,33 @@
                <appendAssemblyId>false</appendAssemblyId>
                <descriptors>
                  <descriptor>src/assemble/appPackage.xml</descriptor>
+               </descriptors>
+               <archiverConfig>
+                 <defaultDirectoryMode>0755</defaultDirectoryMode>
+               </archiverConfig>
+               <archive>
+                 <manifestEntries>
+                   <Class-Path>${datatorrent.apppackage.classpath}</Class-Path>
+                   <DT-Engine-Version>${datatorrent.version}</DT-Engine-Version>
+                   <DT-App-Package-Name>${project.artifactId}</DT-App-Package-Name>
+                   <DT-App-Package-Version>${project.version}</DT-App-Package-Version>
+                   <DT-App-Package-Display-Name>${project.name}</DT-App-Package-Display-Name>
+                   <DT-App-Package-Description>${project.description}</DT-App-Package-Description>
+                 </manifestEntries>
+               </archive>
+             </configuration>
+           </execution>
+           <execution>
+             <id>app-package-assembly-Kinesis</id>
+             <phase>package</phase>
+             <goals>
+               <goal>single</goal>
+             </goals>
+             <configuration>
+               <finalName>DTApp-${project.artifactId}-kinesis-${project.version}</finalName>
+               <appendAssemblyId>false</appendAssemblyId>
+               <descriptors>
+                 <descriptor>src/assemble/appPackageKinesis.xml</descriptor>
                </descriptors>
                <archiverConfig>
                  <defaultDirectoryMode>0755</defaultDirectoryMode>
